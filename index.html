@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Template Generator (Dark - Neon)</title>
+    <title>Email Template Generator</title>
     <style>
-        /* Global styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -17,9 +16,9 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            font-size: 16px;
         }
 
-        /* Header styles */
         header {
             background-color: #1a1a1a;
             padding: 10px 0;
@@ -30,14 +29,13 @@
         }
 
         header h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: bold;
             letter-spacing: 2px;
             margin: 0;
-            color: #ffeb3b; /* Neon yellow color for header text */
+            color: #ffeb3b;
         }
 
-        /* Button styles */
         .button-container button {
             margin: 5px;
             padding: 8px 12px;
@@ -47,22 +45,23 @@
             flex: 1;
             border-radius: 10px;
             font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 14px;
         }
 
-        .button-container button:nth-child(-n+5) {
-            background-color: #ffeb3b; /* Neon yellow color for first 5 buttons */
+        .button-container .yellow-buttons button {
+            background-color: #ffd54f; /* Adjusted to a lighter yellow color */
         }
 
-        .button-container button:nth-child(n+6):nth-child(-n+8) {
-            background-color: #00e676; /* Neon green color for the last 3 buttons */
+        .button-container .green-buttons button {
+            background-color: #4caf50; /* Adjusted to a green color */
         }
 
         .button-container button:hover {
-            background-color: #ff9800; /* Slightly darker orange on hover */
+            background-color: #ff9800;
             transform: scale(1.05);
         }
 
-        /* Textarea styles */
         textarea {
             width: 80%;
             height: 450px;
@@ -73,20 +72,14 @@
             border: 1px solid #555;
             border-radius: 10px;
             font-family: Arial, sans-serif;
-            font-size: 14px;
+            font-size: 16px;
             background-color: #333;
-            color: #00e676; /* Neon green color for textarea text */
+            color: #00e676;
+            transition: border-color 0.3s ease;
         }
 
-        /* Animation */
-        .button-container button,
-        textarea {
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        /* Textarea hover animation */
         textarea:hover {
-            border-color: #ffeb3b; /* Neon yellow color on hover */
+            border-color: #ffeb3b;
         }
     </style>
 </head>
@@ -95,134 +88,41 @@
         <h1>Email Template Generator</h1>
     </header>
     <div class="button-container">
-        <button onclick="generateInitialGreeting()">Initial Greeting</button>
-        <button onclick="generateFollowUp1()">Follow Up 1</button>
-        <button onclick="generateFollowUp2()">Follow Up 2</button>
-        <button onclick="generateMeetingInvite()">Meeting Invite</button>
-        <button onclick="generateClosure()">Closure</button>
-        <button onclick="generateCustom()">Custom</button>
+        <button class="yellow-buttons" onclick="generateTemplate('Initial Email', ['Hi, Thank you for choosing Abnormal Security. My name is Rohan Rao, and I have received your case and I am looking into this.'])">Initial Email</button>
+        <button class="yellow-buttons" onclick="generateTemplate('Delay', ['Hi, Thank you for your patience, and I apologise for any inconvenience caused by the delayed responses to your account support cases. We are currently grappling with a higher volume of cases, leading to a backlog. Rest assured, this is not our usual practice.'])">Delay</button>
+        <button class="yellow-buttons" onclick="generateTemplate('Follow Up 1', ['Hi, I hope this email finds you well. I\'m reaching out for a follow-up to check if you require further assistance. Please let me know if there is anything I can help you with. Additionally, may I kindly ask for an update on the current status of the case?'])">Follow Up 1</button>
+        <button class="yellow-buttons" onclick="generateTemplate('Follow Up 2', ['Hi, I hope this email finds you well. I\'m checking in to see if there have been any updates on this case. Please let me know how things are progressing.'])">Follow Up 2</button>
+        <button class="green-buttons" onclick="generateTemplate('LOCR', ['Hi, We couldn\'t get recent updates on your case and haven\'t been able to reach you. We will wait for your response till the closing of business today, further which we will soft-close the case. Even after closure, you can use this case as a reference and open a new one for any additional work on the issue. Feel free to reach out if you have any questions or need further assistance.'])">LOCR 1</button>
+        <button class="green-buttons" onclick="generateTemplate('LOCR 2', ['Hi, We were unable to get recent updates on your case and couldn\'t reach you. As a result, we\'ll be soft-closing the case. You can refer to it for future issues or open a new one. Reach out if you have questions or need assistance.'])">LOCR 2</button>
+        <button class="green-buttons" onclick="generateTemplate('Closure 1', ['Hi, We believe the issue has been resolved at this time. For now, we are going to go ahead and archive this case. If you have any additional questions please feel free to reach out to support with a new case, or to your CSM.'])">Closure 1</button>
+        <button class="green-buttons" onclick="generateTemplate('Closure 2', ['Hi, Thank you for the confirmation to close the case and thank you again for reaching out to Abnormal Support about this. For now, we are going to go ahead and archive this case. If you have any additional questions please feel free to reach out to support with a new case, or to your CSM.'])">Closure 2</button>
         <button onclick="clearTemplate()">Clear</button>
         <button onclick="copyTemplate()">Copy</button>
     </div>
     <textarea id="template" placeholder="Generated email template will appear here"></textarea>
     <textarea id="oneTimeContent" placeholder="One-time content" style="height: 150px;"></textarea>
-<script>
-    // Signature that will be appended to each generated template
-    var signature = "Thanks & Regards,\nNAME";
+    <script>
+        function generateTemplate(type, contentArray) {
+            var greeting = contentArray[0].split(' ', 1)[0];
+            var content = contentArray.join('\n').replace(greeting, '');
+            var template = greeting + "\n\n" + content.trim();
+            loadTemplate(template);
+        }
 
-    // Function to generate an initial greeting template
-    function generateInitialGreeting() {
-        // Template components
-        var greeting = "Greetings for the day.\n\nIntroduce \nyour message here...";
-        var content1 = "Introduce your message here...";
-        var content2 = "More message content...";
-        var content3 = "Additional content...";
-        var content4 = "Further content...";
-        
-        // Combine components to create the template
-        var template = greeting + "\n\n" + content2 + "\n\n" + content3 + "\n\n" + content4 + "\n\n" + signature;
-        
-        // Load the template into the textarea
-        loadTemplate(template);
-    }
+        function loadTemplate(template) {
+            document.getElementById('template').value = template;
+        }
 
-    // Function to generate a follow-up 1 template
-    function generateFollowUp1() {
-        // Template components
-        var greeting = "I hope this email finds you well.";
-        var content1 = "Follow-up content...";
-        var content2 = "More follow-up content...";
-        var content3 = "Additional content...";
-        var content4 = "Further content...";
-        
-        // Combine components to create the template
-        var template = greeting + "\n\n" + content1 + "\n\n" + content2 + "\n\n" + content3 + "\n\n" + content4 + "\n\n" + signature;
-        
-        // Load the template into the textarea
-        loadTemplate(template);
-    }
+        function clearTemplate() {
+            document.getElementById('template').value = "";
+            document.getElementById('oneTimeContent').value = "";
+        }
 
-    // Function to generate a follow-up 2 template
-    function generateFollowUp2() {
-        // Template components
-        var greeting = "Hi there,";
-        var content1 = "Just checking in to see if there have been any updates.";
-        var content2 = "Please let me know how things are progressing.";
-        var content3 = "Looking forward to hearing from you.";
-        var content4 = "Additional content...";
-        var content5 = "Further content...";
-        
-        // Combine components to create the template
-        var template = greeting + "\n\n" + content1 + "\n\n" + content2 + "\n\n" + content3 + "\n\n" + content4 + "\n\n" + content5 + "\n\n" + signature;
-        
-        // Load the template into the textarea
-        loadTemplate(template);
-    }
-
-    // Function to generate a meeting invitation template
-    function generateMeetingInvite() {
-        // Template components
-        var greeting = "Dear [Name],";
-        var content1 = "I would like to invite you to a meeting to discuss [topic] on [date and time].";
-        var content2 = "Please let me know if this works for you.";
-        var content3 = "Looking forward to our discussion.";
-        var content4 = "Additional content...";
-        var content5 = "Further content...";
-        
-        // Combine components to create the template
-        var template = greeting + "\n\n" + content1 + "\n\n" + content2 + "\n\n" + content3 + "\n\n" + content4 + "\n\n" + content5 + "\n\n" + signature;
-        
-        // Load the template into the textarea
-        loadTemplate(template);
-    }
-
-    // Function to generate a closure template
-    function generateClosure() {
-        // Template components
-        var greeting = "Hi [Name],";
-        var content1 = "Thank you for your time and consideration.";
-        var content2 = "Please feel free to reach out if you have any further questions.";
-        var content3 = "Looking forward to future interactions.";
-        var content4 = "Additional content...";
-        var content5 = "Further content...";
-        
-        // Combine components to create the template
-        var template = greeting + "\n\n" + content1 + "\n\n" + content2 + "\n\n" + content3 + "\n\n" + content4 + "\n\n" + content5 + "\n\n" + signature;
-        
-        // Load the template into the textarea
-        loadTemplate(template);
-    }
-
-    // Function to generate a custom template
-    function generateCustom() {
-        // Custom template components
-        var resolutionmesg1 = "Hi ";
-        var resolutionmesg2 = "I hope you are having a wonderful day!";
-        
-        // Combine components to create the custom template
-        var template = resolutionmesg1 + "\n\n" + resolutionmesg2 + "\n\n\n\n" + signature;
-        
-        // Load the template into the textarea
-        loadTemplate(template);
-    }
-   // Function to load a template into the textarea
-    function loadTemplate(template) {
-        document.getElementById('template').value = template;
-    }
-
-    // Function to clear both templates
-    function clearTemplate() {
-        document.getElementById('template').value = "";
-        document.getElementById('oneTimeContent').value = "";
-    }
-
-    // Function to copy the template to clipboard
-    function copyTemplate() {
-        var templateText = document.getElementById('template');
-        templateText.select();
-        document.execCommand('copy');
-    }
-</script>
-
+        function copyTemplate() {
+            var templateText = document.getElementById('template');
+            templateText.select();
+            document.execCommand('copy');
+        }
+    </script>
 </body>
 </html>
