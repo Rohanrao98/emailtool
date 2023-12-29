@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Template Generator</title>
+    <title>Abnormal Email Template Generator</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #222;
+            background-color: #242424;
             color: white;
             display: flex;
             flex-direction: column;
@@ -20,12 +20,12 @@
         }
 
         header {
-            background-color: #1a1a1a;
+            background-color: #2b2b2b;
             padding: 10px 0;
             text-align: center;
             width: 100%;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
         }
 
         header h1 {
@@ -33,34 +33,29 @@
             font-weight: bold;
             letter-spacing: 2px;
             margin: 0;
-            color: #ffeb3b;
+            color: #ff8c00;
         }
 
         .button-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
+            flex-wrap: wrap;
             width: 80%;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         .button-container button {
-            margin: 5px;
-            padding: 8px 12px;
+            margin: 10px;
+            padding: 12px 20px;
             color: #333;
             border: none;
             cursor: pointer;
-            border-radius: 10px;
+            border-radius: 20px;
             font-weight: bold;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            font-size: 14px;
-        }
-
-        .button-container .yellow-buttons button {
-            background-color: #ffd54f;
-        }
-
-        .button-container .green-buttons button {
-            background-color: #4caf50;
+            font-size: 16px;
+            background-color: #ff8c00;
+            border: 2px solid #ff8c00;
         }
 
         .button-container button:hover {
@@ -70,14 +65,14 @@
 
         textarea {
             width: 80%;
-            height: 450px;
+            height: 400px;
             margin: 10px auto;
             padding: 10px;
             resize: none;
             display: block;
-            border: 1px solid #555;
-            border-radius: 10px;
-            font-family: Arial, sans-serif;
+            border: 2px solid #555;
+            border-radius: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 16px;
             background-color: #333;
             color: #00e676;
@@ -85,25 +80,23 @@
         }
 
         textarea:hover {
-            border-color: #ffeb3b;
+            border-color: #ff8c00;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Email Template Generator</h1>
+        <h1>Abnormal Email Template Generator</h1>
     </header>
     <div class="button-container">
-        <button class="yellow-buttons" onclick="generateTemplate('Initial Email', ['Hi, Thank you for choosing Abnormal Security. My name is Rohan Rao, and I have received your case and I am looking into this.'])">Initial Email</button>
-        <button class="yellow-buttons" onclick="generateTemplate('Delay', ['Hi, Thank you for your patience, and I apologise for any inconvenience caused by the delayed responses to your account support cases. We are currently grappling with a higher volume of cases, leading to a backlog. Rest assured, this is not our usual practice.'])">Delay</button>
-        <button class="yellow-buttons" onclick="generateTemplate('Follow Up 1', ['Hi, I hope this email finds you well. I\'m reaching out for a follow-up to check if you require further assistance. Please let me know if there is anything I can help you with. Additionally, may I kindly ask for an update on the current status of the case?'])">Follow Up 1</button>
-        <button class="yellow-buttons" onclick="generateTemplate('Follow Up 2', ['Hi, I hope this email finds you well. I\'m checking in to see if there have been any updates on this case. Please let me know how things are progressing.'])">Follow Up 2</button>
-        <button class="green-buttons" onclick="generateTemplate('LOCR 1', ['Hi, We couldn\'t get recent updates on your case and haven\'t been able to reach you. We will wait for your response till the closing of business today, further which we will soft-close the case. Even after closure, you can use this case as a reference and open a new one for any additional work on the issue. Feel free to reach out if you have any questions or need further assistance.'])">LOCR 1</button>
-        <button class="green-buttons" onclick="generateTemplate('LOCR 2', ['Hi, We were unable to get recent updates on your case and couldn\'t reach you. As a result, we\'ll be soft-closing the case. You can refer to it for future issues or open a new one. Reach out if you have questions or need assistance.'])">LOCR 2</button>
-        <button class="green-buttons" onclick="generateTemplate('Closure 1', ['Hi, We believe the issue has been resolved at this time. For now, we are going to go ahead and archive this case. If you have any additional questions please feel free to reach out to support with a new case, or to your CSM.'])">Closure 1</button>
-        <button class="green-buttons" onclick="generateTemplate('Closure 2', ['Hi, Thank you for the confirmation to close the case and thank you again for reaching out to Abnormal Support about this. For now, we are going to go ahead and archive this case. If you have any additional questions please feel free to reach out to support with a new case, or to your CSM.'])">Closure 2</button>
-        <button onclick="clearTemplate()">Clear</button>
-        <button onclick="copyTemplate()">Copy</button>
+        <button onclick="generateTemplate('Initial Email', ['Hi, Thank you for choosing Abnormal Security. My name is Rohan Rao, and I have received your case and I am looking into this.'])">Initial Email</button>
+        <button onclick="generateTemplate('Delay', ['Hi, Thank you for your patience, and I apologize for any inconvenience caused by the delayed responses to your account support cases. We are currently grappling with a higher volume of cases, leading to a backlog. Rest assured, this is not our usual practice.'])">Delay</button>
+        <button onclick="generateTemplate('Follow Up 1', ['Hi, I hope this email finds you well. I\'m reaching out for a follow-up to check if you require further assistance. Please let me know if there is anything I can help you with. Additionally, may I kindly ask for an update on the current status of the case?'])">Follow Up 1</button>
+        <button onclick="generateTemplate('Follow Up 2', ['Hi, I hope this email finds you well. I\'m checking in to see if there have been any updates on this case. Please let me know how things are progressing.'])">Follow Up 2</button>
+        <button onclick="generateTemplate('LOCR 1', ['Hi, We couldn\'t get recent updates on your case and haven\'t been able to reach you. We will wait for your response till the closing of business today, further which we will soft-close the case. Even after closure, you can use this case as a reference and open a new one for any additional work on the issue. Feel free to reach out if you have any questions or need further assistance.'])">LOCR 1</button>
+        <button onclick="generateTemplate('LOCR 2', ['Hi, We were unable to get recent updates on your case and couldn\'t reach you. As a result, we\'ll be soft-closing the case. You can refer to it for future issues or open a new one. Reach out if you have questions or need assistance.'])">LOCR 2</button>
+        <button onclick="generateTemplate('Closure 1', ['Hi, We believe the issue has been resolved at this time. For now, we are going to go ahead and archive this case. If you have any additional questions please feel free to reach out to support with a new case, or to your CSM.'])">Closure 1</button>
+        <button onclick="generateTemplate('Closure 2', ['Hi, Thank you for the confirmation to close the case and thank you again for reaching out to Abnormal Support about this. For now, we are going to go ahead and archive this case. If you have any additional questions please feel free to reach out to support with a new case, or to your CSM.'])">Closure 2</button>
     </div>
     <textarea id="template" placeholder="Generated email template will appear here"></textarea>
     <textarea id="oneTimeContent" placeholder="One-time content" style="height: 150px;"></textarea>
@@ -117,17 +110,6 @@
 
         function loadTemplate(template) {
             document.getElementById('template').value = template;
-        }
-
-        function clearTemplate() {
-            document.getElementById('template').value = "";
-            document.getElementById('oneTimeContent').value = "";
-        }
-
-        function copyTemplate() {
-            var templateText = document.getElementById('template');
-            templateText.select();
-            document.execCommand('copy');
         }
     </script>
 </body>
