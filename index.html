@@ -97,10 +97,6 @@
             margin-top: 20px;
         }
 
-        .signature span {
-            font-weight: bold;
-        }
-
         .signature .tagline {
             color: #6f42c1;
             font-weight: bold;
@@ -115,30 +111,22 @@
         <h1>Abnormal Email Template Generator</h1>
     </header>
     <div class="button-container">
-        <button class="yellow-buttons" onclick="generateTemplate('Initial Email', ['Hi, ...'])">Initial Email</button>
-        <button class="yellow-buttons" onclick="generateTemplate('Delay', ['Hi, ...'])">Delay</button>
-        <button class="green-buttons" onclick="generateTemplate('LOCR 1', ['Hi, ...'])">LOCR 1</button>
+        <button class="yellow-buttons" onclick="generateTemplate('Initial Email', 'Hi, ...')">Initial Email</button>
+        <button class="yellow-buttons" onclick="generateTemplate('Delay', 'Hi, ...')">Delay</button>
+        <button class="green-buttons" onclick="generateTemplate('LOCR 1', 'Hi, ...')">LOCR 1</button>
         <button class="copy-button" onclick="copyTemplate()">Copy</button>
     </div>
     <textarea id="template" placeholder="Generated email template will appear here"></textarea>
     <textarea id="oneTimeContent" placeholder="One-time content" style="height: 150px;"></textarea>
     <script>
-        function generateTemplate(type, contentArray) {
-            var greeting = contentArray[0].split(' ', 1)[0];
-            var content = contentArray.join('\n').replace(greeting, '');
-            var template = greeting + "\n\n" + content.trim();
-            var signature = `
-\n\nBest Regards,
-\n<strong>Rohan Rao</strong>
-\nTechnical Support Engineer, Abnormal Security
-\nsupport@abnormalsecurity.com
-\nPhone: +1.866.466.9321
-\n<span style="color: #6f42c1; font-weight: bold;">Go ahead, be human. Abnormal AI keeps your email protected.</span>`;
-            template += signature;
-            loadTemplate(template);
-        }
+        function generateTemplate(type, content) {
+            // Email content
+            let template = `${content}\n\nBest Regards,\n\n<strong>Rohan Rao</strong>\nTechnical Support Engineer, Abnormal Security\nsupport@abnormalsecurity.com\nPhone: +1.866.466.9321`;
 
-        function loadTemplate(template) {
+            // Tagline
+            template += `\n\n<span style="color: #6f42c1; font-weight: bold;">Go ahead, be human. Abnormal AI keeps your email protected.</span>`;
+
+            // Update the textarea
             document.getElementById('template').value = template;
         }
 
