@@ -2,14 +2,10 @@
 <html lang="en">
 
 <head>
-    <!-- Set the character set and viewport for the HTML document -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Title of the HTML document -->
     <title>Email Template Generator</title>
-    <!-- Styling for the HTML document -->
     <style>
-        /* General styling for the body */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -24,7 +20,6 @@
             font-size: 16px;
         }
 
-        /* Styling for the header section */
         header {
             background-color: #1a1a1a;
             padding: 10px 0;
@@ -34,7 +29,6 @@
             border-bottom-right-radius: 10px;
         }
 
-        /* Styling for the header's h1 element */
         header h1 {
             font-size: 2.5rem;
             font-weight: bold;
@@ -43,7 +37,6 @@
             color: #ffeb3b;
         }
 
-        /* Styling for the button container */
         .button-container {
             display: flex;
             justify-content: space-around;
@@ -51,7 +44,6 @@
             margin: 20px 0;
         }
 
-        /* Styling for the buttons */
         .button-container button {
             margin: 5px;
             padding: 10px 15px;
@@ -64,28 +56,23 @@
             font-size: 14px;
         }
 
-        /* Styling for yellow buttons */
         .button-container .yellow-buttons {
             background-color: #ffd54f;
         }
 
-        /* Styling for green buttons */
         .button-container .green-buttons {
             background-color: #4caf50;
         }
 
-        /* Styling for the copy button */
         .button-container .copy-button {
             background-color: #2196F3;
         }
 
-        /* Button hover effect */
         .button-container button:hover {
             background-color: #ff9800;
             transform: scale(1.05);
         }
 
-        /* Styling for the textarea */
         textarea {
             width: 80%;
             height: 450px;
@@ -102,65 +89,59 @@
             transition: border-color 0.3s ease;
         }
 
-        /* Textarea hover effect */
         textarea:hover {
             border-color: #ffeb3b;
+        }
+
+        .signature {
+            margin-top: 20px;
+        }
+
+        .signature span {
+            font-weight: bold;
+        }
+
+        .signature .tagline {
+            color: #6f42c1;
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
         }
     </style>
 </head>
 
 <body>
-    <!-- Header section with the title -->
     <header>
         <h1>Abnormal Email Template Generator</h1>
     </header>
-    <!-- Button container with various email template buttons -->
     <div class="button-container">
-        <!-- Button for generating Initial Email template -->
-        <button class="yellow-buttons" onclick="generateTemplate('Initial Email', ['Hi, Thank you for choosing Abnormal Security. My name is Rohan Rao, and I\'ve received your case. I\'m currently investigating the matter. Please allow me some time, and I will provide you with an update shortly.'])">Initial Email</button>
-        <!-- Button for generating Delay template -->
-        <button class="yellow-buttons" onclick="generateTemplate('Delay', ['Hi, I apologize for any inconvenience caused by the delayed responses to your account support cases. Currently, we are experiencing a higher volume of cases, resulting in a backlog. Please be assured that this is not our usual practice, and we are actively working to resolve the situation and get back on track as soon as possible.'])">Delay</button>
-        <!-- Button for generating Follow Up 1 template -->
-        <button class="yellow-buttons" onclick="generateTemplate('Follow Up 1', ['Hi, I hope this email finds you well. I\'m reaching out for a follow-up to check if you require further assistance. Please let me know if there is anything I can help you with. Additionally, may I kindly ask for an update on the current status of the case?'])">Follow Up 1</button>
-        <!-- Button for generating Follow Up 2 template -->
-        <button class="yellow-buttons" onclick="generateTemplate('Follow Up 2', ['Hi, I hope this email finds you well. I\'m checking in to see if there have been any updates on this case. Please let me know if you have any further questions or if there\'s anything else I can assist you with.'])">Follow Up 2</button>
-        <!-- Button for generating LOCR 1 template -->
-        <button class="green-buttons" onclick="generateTemplate('LOCR 1', ['Hi, We couldn\'t get recent updates on your case and haven\'t been able to reach you. We will wait for your response till the closing of business today, after which we will soft-close the case. Even after closure, you can use this case as a reference and open a new one for any additional work on the issue. Feel free to reach out if you have any questions or need further assistance.'])">LOCR 1</button>
-        <!-- Button for generating LOCR 2 template -->
-        <button class="green-buttons" onclick="generateTemplate('LOCR 2', ['Hi, We were unable to get recent updates on your case and couldn\'t reach you. As a result, we\'ll be soft-closing the case. You can refer to it for future issues or open a new one. Reach out if you have questions or need assistance.'])">LOCR 2</button>
-        <!-- Button for generating Closure 1 template -->
-        <button class="green-buttons" onclick="generateTemplate('Closure 1', ['Hi, Thanks for your reply, we believe the case can be marked resolved at this time. For now, we are going to go ahead and archive this case. If you have any additional questions please feel free to reach out to support with a new case, or to your CSM.'])">Closure 1</button>
-        <!-- Button for generating Closure 2 template -->
-        <button class="green-buttons" onclick="generateTemplate('Closure 2', ['Hi, Thank you for the confirmation to close the case, and thank you again for reaching out to Abnormal Support about this. For now, we are going to go ahead and archive this case. If you have any additional questions please feel free to reach out to support with a new case, or to your CSM. \n\nIf you found my support helpful, I\'d really appreciate it if you could take a moment to fill out the survey.'])">Closure 2</button>
-        <!-- Copy button added to copy the generated template -->
+        <button class="yellow-buttons" onclick="generateTemplate('Initial Email', ['Hi, ...'])">Initial Email</button>
+        <button class="yellow-buttons" onclick="generateTemplate('Delay', ['Hi, ...'])">Delay</button>
+        <button class="green-buttons" onclick="generateTemplate('LOCR 1', ['Hi, ...'])">LOCR 1</button>
         <button class="copy-button" onclick="copyTemplate()">Copy</button>
     </div>
-    <!-- Textarea to display the generated email template -->
     <textarea id="template" placeholder="Generated email template will appear here"></textarea>
-    <!-- Textarea for one-time content input -->
     <textarea id="oneTimeContent" placeholder="One-time content" style="height: 150px;"></textarea>
-    <!-- JavaScript section for handling template generation, loading, clearing, and copying -->
     <script>
-        // Function to generate an email template based on type and content
         function generateTemplate(type, contentArray) {
             var greeting = contentArray[0].split(' ', 1)[0];
             var content = contentArray.join('\n').replace(greeting, '');
             var template = greeting + "\n\n" + content.trim();
+            var signature = `
+\n\nBest Regards,
+\n<strong>Rohan Rao</strong>
+\nTechnical Support Engineer, Abnormal Security
+\nsupport@abnormalsecurity.com
+\nPhone: +1.866.466.9321
+\n<span style="color: #6f42c1; font-weight: bold;">Go ahead, be human. Abnormal AI keeps your email protected.</span>`;
+            template += signature;
             loadTemplate(template);
         }
 
-        // Function to load a template into the textarea
         function loadTemplate(template) {
             document.getElementById('template').value = template;
         }
 
-        // Function to clear the template textareas
-        function clearTemplate() {
-            document.getElementById('template').value = "";
-            document.getElementById('oneTimeContent').value = "";
-        }
-
-        // Function to copy the content of the template textarea
         function copyTemplate() {
             var templateText = document.getElementById('template');
             templateText.select();
